@@ -117,6 +117,7 @@ export default function WaterRippleCanvas() {
     let intervalId: number;
 
     function initDots() {
+      if (!canvas) return; // <--- THE FIX IS HERE
       rWidth = canvas.width = window.innerWidth;
       rHeight = canvas.height = window.innerHeight;
       dots = [];
@@ -133,6 +134,7 @@ export default function WaterRippleCanvas() {
     }
 
     function animateWater() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, rWidth, rHeight);
 
       for (let i = ripples.length - 1; i >= 0; i--) {
