@@ -72,3 +72,23 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* Smooth anchor scrolling for header navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for the sticky header when jumping to a section */
+#editorialBand,
+#checklistSection,
+#portalSection,
+#resultSection {
+  scroll-margin-top: 96px; /* Leaves space for the sticky header */
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

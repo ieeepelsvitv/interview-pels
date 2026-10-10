@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import WaterRippleCanvas from '@/components/WaterRippleCanvas';
 import AnnouncementBanner from '@/components/AnnouncementBanner';
 import Header from '@/components/Header';
@@ -14,6 +14,19 @@ import { Linkedin } from 'lucide-react';
 export default function Home() {
   const [candidate, setCandidate] = useState<Recruit | null>(null);
   const [notFoundMsg, setNotFoundMsg] = useState<string | null>(null);
+  
+  // Ref to track the Result Card section for scrolling
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // Automatically scroll to the result when a candidate is found
+  useEffect(() => {
+    if (candidate && resultRef.current) {
+      // Small delay ensures the component has fully rendered before scrolling
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }
+  }, [candidate]);
 
   return (
     <main className="relative min-h-screen">
@@ -21,13 +34,21 @@ export default function Home() {
       <div className="relative z-10">
         <AnnouncementBanner />
         <Header />
+        
         <HeroSection
           onCandidateFound={(c) => { setCandidate(c); setNotFoundMsg(null); }}
           onNotFound={(m) => { setNotFoundMsg(m); setCandidate(null); }}
           notFoundMsg={notFoundMsg}
           candidate={candidate}
         />
-        {candidate && <ResultCard candidate={candidate} />}
+
+        {/* Wrapped in a ref-targeted div for smooth scrolling */}
+        {candidate && (
+          <div id="resultSection" ref={resultRef} className="scroll-mt-24">
+            <ResultCard candidate={candidate} />
+          </div>
+        )}
+
         {notFoundMsg && !candidate && (
           <div className="max-w-2xl mx-auto px-6 mt-6">
             <div className="p-6 rounded-2xl bg-white border border-[#e3e3e2] text-left flex items-start gap-4">
@@ -49,6 +70,7 @@ export default function Home() {
             </div>
           </div>
         )}
+
         <EditorialBand />
         <ChecklistSection />
         <Footer />
