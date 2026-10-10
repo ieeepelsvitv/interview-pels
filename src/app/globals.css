@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-midnight-wine: #421d24;
+  --color-royal-violet: #714cb6;
+  --color-lilac-mist: #d4c7ff;
+  --color-deep-lagoon: #0c4243;
+  --color-warm-parchment: #f2f0eb;
+  --color-soft-mist: #e3e3e2;
+  --color-ink-charcoal: #292827;
+  --color-stone-gray: #666666;
+  --color-paper-white: #ffffff;
+  --font-super: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: 'Newsreader', Georgia, serif;
+}
+
+body {
+  background-color: var(--color-warm-parchment);
+  color: var(--color-ink-charcoal);
+  font-family: var(--font-super);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+.headline-display { font-weight: 460; font-size: clamp(38px, 6vw, 64px); line-height: 0.98; letter-spacing: -0.028em; color: var(--color-ink-charcoal); }
+.headline-sm { font-weight: 460; font-size: 28px; line-height: 1.14; letter-spacing: -0.62px; color: var(--color-ink-charcoal); }
+.font-w460 { font-weight: 460; }
+.font-w540 { font-weight: 540; }
+
+.btn-midnight-wine {
+  background-color: var(--color-midnight-wine); color: #ffffff; font-weight: 460; font-size: 16px;
+  border-radius: 16px; padding: 12px 24px; height: 48px; display: inline-flex; align-items: center;
+  justify-content: center; gap: 8px; border: none; transition: opacity 0.15s ease, transform 0.15s ease; cursor: pointer;
+}
+.btn-midnight-wine:hover { opacity: 0.92; transform: translateY(-1px); }
+.btn-midnight-wine:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn-lilac-outlined {
+  background-color: var(--color-lilac-mist); color: var(--color-ink-charcoal); border: 1px solid var(--color-ink-charcoal);
+  border-radius: 8px; padding: 6px 16px; font-size: 14px; font-weight: 500; display: inline-flex;
+  align-items: center; gap: 6px; transition: background-color 0.15s ease; cursor: pointer;
+}
+.btn-lilac-outlined:hover { background-color: #c8b8fa; }
+
+.paper-card {
+  background-color: var(--color-paper-white); border: 1px solid var(--color-soft-mist);
+  border-radius: 16px; padding: 24px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-warm-parchment); }
+::-webkit-scrollbar-thumb { background: #d4d0c7; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-stone-gray); }
