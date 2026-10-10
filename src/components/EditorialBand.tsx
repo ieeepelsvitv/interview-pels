@@ -1,6 +1,4 @@
-import { ArrowRight } from 'lucide-react';
-
-export default function EditorialBand({ onOpenRoster }: { onOpenRoster: () => void }) {
+export default function EditorialBand() {
   return (
     <section id="editorialBand" className="w-full bg-[#0c4243] text-white py-20 sm:py-24 my-12">
       <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -25,12 +23,9 @@ export default function EditorialBand({ onOpenRoster }: { onOpenRoster: () => vo
         <div className="max-w-xl">
           <span className="text-[13px] font-w540 uppercase tracking-widest text-[#d4c7ff] block mb-3">The Interview Experience</span>
           <h2 className="text-3xl sm:text-5xl font-w460 text-white tracking-tight leading-tight mb-6">Five minutes to share your curiosity.</h2>
-          <p className="text-[17px] font-w460 text-white/80 leading-relaxed mb-8">
-            Each candidate is allocated a dedicated 5-minute interaction with our panel leads. Be genuine, test your microphone and webcam ahead of time.
+          <p className="text-[17px] font-w460 text-white/80 leading-relaxed">
+            Each candidate is allocated a dedicated 5-minute interaction with our panel leads. Be genuine, test your microphone and webcam ahead of time, and come ready to talk about your interests.
           </p>
-          <button onClick={onOpenRoster} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white text-white hover:bg-white hover:text-[#0c4243] transition font-w460 text-[15px] cursor-pointer bg-transparent">
-            <span>Explore full 51-applicant schedule</span> <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
       </div>
     </section>

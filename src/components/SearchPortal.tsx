@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Recruit } from '@/types';
-import { Search, X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { playSuccess, playError } from '@/lib/sound';
 
 interface Props {
   onCandidateFound: (candidate: Recruit) => void;
@@ -14,78 +15,79 @@ export default function SearchPortal({ onCandidateFound, onNotFound }: Props) {
   const [regInput, setRegInput] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
-  const handleSearch = async (e?: React.FormEvent, query?: string) => {
+  const handleSearch = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    const searchQuery = query || regInput;
-    if (!searchQuery.trim()) return;
 
+    // Empty entry → error sound + notice
+    if (!regInput.trim()) {
+      playError();
+      onNotFound('Please enter your registration number.');
+      return;
+    }
+
+    const clean = regInput.trim().toUpperCase().replace(/\s+/g, '');
+
+    // Fetch ONLY the single matching row from Supabase (private lookup)
     setIsSearching(true);
-    
-    // Fetch all 51 rows (instant & cheap, allows client-side typo tolerance)
-    const { data, error } = await supabase.from('recruits').select('*');
+    const { data, error } = await supabase.rpc('get_candidate_by_reg', {
+      reg_input: clean,
+    });
     setIsSearching(false);
 
-    if (error || !data) {
+    if (error) {
+      playError();
       onNotFound('Failed to connect to the database. Please try again.');
       return;
     }
 
-    const clean = searchQuery.trim().toUpperCase().replace(/\s+/g, '');
-    const candidate = data.find((r: Recruit) => {
-      const rNo = r.reg_no.replace(/\s+/g, '').toUpperCase();
-      const nNo = (r.normalized_reg || '').replace(/\s+/g, '').toUpperCase();
-      if (rNo === clean || nNo === clean) return true;
-      
-      // Tolerate 'O' vs '0' substitution
-      const cleanReplaced = clean.replace(/O/g, '0');
-      const rReplaced = rNo.replace(/O/g, '0');
-      return rReplaced === cleanReplaced;
-    });
+    const candidate = data && data.length > 0 ? (data[0] as Recruit) : null;
 
     if (candidate) {
+      // ✅ Correct entry
+      playSuccess();
       onCandidateFound(candidate);
-      confetti({ particleCount: 35, spread: 60, origin: { y: 0.6 }, colors: ['#421d24', '#714cb6', '#d4c7ff'] });
+      try {
+        confetti({ particleCount: 35, spread: 60, origin: { y: 0.6 }, colors: ['#421d24', '#714cb6', '#d4c7ff'] });
+      } catch { /* ignore */ }
     } else {
+      // ❌ Incorrect entry
+      playError();
       onNotFound(`Registration number "${clean}" is not in the applicant roster.`);
     }
   };
 
   return (
-    <div className="paper-card shadow-sm border border-[#e3e3e2] p-6 sm:p-8">
+    <div id="portalSection" className="paper-card shadow-sm border border-[#e3e3e2] p-6 sm:p-8">
       <form onSubmit={handleSearch} className="space-y-4">
         <div className="space-y-2">
-          <label className="block text-[13px] font-w540 text-[#292827] tracking-tight uppercase">
+          <label htmlFor="regInput" className="block text-[13px] font-w540 text-[#292827] tracking-tight uppercase">
             Student Registration Number
           </label>
           <div className="relative flex items-center">
-            <input 
-              type="text" 
+            <input
+              id="regInput"
+              type="text"
               value={regInput}
               onChange={(e) => setRegInput(e.target.value.toUpperCase())}
-              placeholder="e.g. 25BEE0060 or 26BME0214"
-              className="w-full bg-[#f2f0eb] border border-[#e3e3e2] focus:border-[#421d24] focus:bg-white text-[#292827] text-[17px] font-medium tracking-wide px-4 py-3.5 rounded-xl outline-none transition placeholder:text-[#999999]"
+              autoComplete="off"
+              className="w-full bg-[#f2f0eb] border border-[#e3e3e2] focus:border-[#421d24] focus:bg-white text-[#292827] text-[17px] font-medium tracking-wide px-4 py-3.5 rounded-xl outline-none transition"
             />
             {regInput && (
-              <button type="button" onClick={() => setRegInput('')} className="absolute right-3 text-[#666666] hover:text-[#292827] p-1">
+              <button
+                type="button"
+                onClick={() => setRegInput('')}
+                className="absolute right-3 text-[#666666] hover:text-[#292827] p-1 bg-transparent border-none cursor-pointer"
+              >
                 <X className="w-4 h-4" />
               </button>
             )}
           </div>
         </div>
-        <button type="submit" disabled={isSearching} className="btn-midnight-wine w-full sm:w-auto px-8 cursor-pointer disabled:opacity-70">
+        <button type="submit" disabled={isSearching} className="btn-midnight-wine w-full sm:w-auto px-8 disabled:opacity-70">
           <span>{isSearching ? 'Searching...' : 'Retrieve Interview Slot'}</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </form>
-
-      <div className="mt-6 pt-5 border-t border-[#e3e3e2] flex flex-wrap items-center gap-2">
-        <span className="text-[12px] text-[#666666] font-w460 mr-1">Quick preview:</span>
-        {['25BEE0060', '26BLC0049', '26BBS0053', '25BEC0392'].map(reg => (
-          <button key={reg} type="button" onClick={() => handleSearch(undefined, reg)} className="text-[12px] px-2.5 py-1 rounded-md bg-[#f2f0eb] hover:bg-[#e3e3e2] text-[#292827] border border-[#e3e3e2] transition">
-            {reg}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }

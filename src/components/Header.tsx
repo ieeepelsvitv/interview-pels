@@ -1,9 +1,16 @@
 'use client';
-import { Calendar, Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { useState } from 'react';
+import { setAudioEnabled } from '@/lib/sound';
 
-export default function Header({ onOpenRoster }: { onOpenRoster: () => void }) {
-  const [audioEnabled, setAudioEnabled] = useState(true);
+export default function Header() {
+  const [audioOn, setAudioOn] = useState(true);
+
+  const toggleAudio = () => {
+    const next = !audioOn;
+    setAudioOn(next);
+    setAudioEnabled(next);
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-[#f2f0eb]/80 backdrop-blur-md border-b border-[#e3e3e2] transition-colors duration-200">
@@ -20,20 +27,17 @@ export default function Header({ onOpenRoster }: { onOpenRoster: () => void }) {
 
         <nav className="hidden md:flex items-center gap-8 text-[15px] font-w460 text-[#292827]">
           <a href="#portalSection" className="hover:text-[#421d24] transition">Dispatch Portal</a>
-          <button onClick={onOpenRoster} className="hover:text-[#421d24] transition bg-transparent border-none cursor-pointer font-w460 text-[15px] text-[#292827]">Candidate Roster</button>
           <a href="#editorialBand" className="hover:text-[#421d24] transition">What We Look For</a>
           <a href="#checklistSection" className="hover:text-[#421d24] transition">Guidelines</a>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <button onClick={() => setAudioEnabled(!audioEnabled)} title="Audio feedback" className="p-2 text-[#666666] hover:text-[#292827] rounded-lg transition bg-transparent border-none cursor-pointer">
-            {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-          <button onClick={onOpenRoster} className="btn-lilac-outlined">
-            <Calendar className="w-3.5 h-3.5" />
-            <span>Master Roster (51)</span>
-          </button>
-        </div>
+        <button
+          onClick={toggleAudio}
+          title={audioOn ? 'Mute sound effects' : 'Unmute sound effects'}
+          className="p-2 text-[#666666] hover:text-[#292827] rounded-lg transition bg-transparent border-none cursor-pointer"
+        >
+          {audioOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+        </button>
       </div>
     </header>
   );
