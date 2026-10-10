@@ -15,18 +15,16 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 bg-[#f2f0eb]/80 backdrop-blur-md border-b border-[#e3e3e2] transition-colors duration-200">
       <div className="max-w-[1200px] mx-auto h-16 px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3 no-underline group">
-          <div className="w-8 h-8 rounded-lg bg-[#421d24] text-white flex items-center justify-center font-bold text-sm tracking-tighter">P</div>
-          <div className="flex flex-col">
-            <span className="font-w540 text-[15px] tracking-tight text-[#292827] flex items-center gap-1.5">
-              IEEE PELS <span className="text-[11px] font-normal text-[#666666] px-1.5 py-0.5 rounded bg-[#e3e3e2]/60">VIT VELLORE</span>
-            </span>
-            <span className="text-[10px] text-[#666666] tracking-wider uppercase font-medium">Power Electronics Society</span>
-          </div>
+        {/* Brand text only (P logo removed) */}
+        <a href="#" className="flex flex-col no-underline group">
+          <span className="font-w540 text-[15px] tracking-tight text-[#292827] flex items-center gap-1.5">
+            IEEE PELS <span className="text-[11px] font-normal text-[#666666] px-1.5 py-0.5 rounded bg-[#e3e3e2]/60">VIT VELLORE</span>
+          </span>
+          <span className="text-[10px] text-[#666666] tracking-wider uppercase font-medium">Power Electronics Society</span>
         </a>
 
+        {/* Nav (Dispatch Portal removed) */}
         <nav className="hidden md:flex items-center gap-8 text-[15px] font-w460 text-[#292827]">
-          <a href="#portalSection" className="hover:text-[#421d24] transition">Dispatch Portal</a>
           <a href="#editorialBand" className="hover:text-[#421d24] transition">What We Look For</a>
           <a href="#checklistSection" className="hover:text-[#421d24] transition">Guidelines</a>
         </nav>

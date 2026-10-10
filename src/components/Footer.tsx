@@ -23,10 +23,12 @@ export default function Footer() {
           <div>
             <div className="text-[13px] font-w540 uppercase tracking-wider text-white mb-3">Domains</div>
             <ul className="space-y-2 text-[13px] text-white/70 list-none p-0">
-              <li>Technical &amp; Projects</li>
-              <li>Operations &amp; Outreach</li>
-              <li>Events &amp; Editorial</li>
-              <li>Design &amp; Media</li>
+              <li>Technical and Projects</li>
+              <li>Finance</li>
+              <li>Publicity and Marketing</li>
+              <li>Operations and Outreach</li>
+              <li>Events and Editorial</li>
+              <li>Design</li>
             </ul>
           </div>
           <div>

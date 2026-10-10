@@ -53,3 +53,22 @@ body {
 ::-webkit-scrollbar-track { background: var(--color-warm-parchment); }
 ::-webkit-scrollbar-thumb { background: #d4d0c7; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-stone-gray); }
+
+/* Smooth anchor scrolling for header navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for the sticky header when jumping to a section */
+#editorialBand,
+#checklistSection,
+#portalSection {
+  scroll-margin-top: 88px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

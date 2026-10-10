@@ -41,6 +41,15 @@ export default function SearchPortal({ onCandidateFound, onNotFound }: Props) {
     }
 
     const candidate = data && data.length > 0 ? (data[0] as Recruit) : null;
+    const isFound = !!candidate;
+
+    // 📝 Fire-and-forget log: records the search attempt without blocking the UI
+    supabase
+      .from('search_logs')
+      .insert([{ searched_reg_no: clean, is_found: isFound }])
+      .then(({ error: logError }) => {
+        if (logError) console.warn('Failed to log search attempt:', logError);
+      });
 
     if (candidate) {
       // ✅ Correct entry

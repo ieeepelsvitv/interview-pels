@@ -1207,10 +1207,6 @@ video {
 .text-\[24px\] {
   font-size: 24px;
 }
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
 .font-bold {
   font-weight: 700;
 }
@@ -1246,9 +1242,6 @@ video {
 }
 .tracking-tight {
   letter-spacing: -0.025em;
-}
-.tracking-tighter {
-  letter-spacing: -0.05em;
 }
 .tracking-wide {
   letter-spacing: 0.025em;
@@ -1418,6 +1411,25 @@ body {
 ::-webkit-scrollbar-track { background: var(--color-warm-parchment); }
 ::-webkit-scrollbar-thumb { background: #d4d0c7; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-stone-gray); }
+
+/* Smooth anchor scrolling for header navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for the sticky header when jumping to a section */
+#editorialBand,
+#checklistSection,
+#portalSection {
+  scroll-margin-top: 88px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 .selection\:bg-\[\#d4c7ff\] *::-moz-selection {
   --tw-bg-opacity: 1;
   background-color: rgb(212 199 255 / var(--tw-bg-opacity, 1));

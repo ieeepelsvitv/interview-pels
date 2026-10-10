@@ -19,8 +19,8 @@ export default function HeroSection({
             <span className="w-2 h-2 rounded-full bg-[#714cb6]"></span>
             <span>Virtual Recruitment Portal • Online via Google Meet</span>
           </div>
-          <h1 className="headline-display mb-6">
-            Find your junior core<br />
+                    <h1 className="headline-display mb-6">
+            Find your<br />
             <span className="font-normal italic" style={{ fontFamily: 'var(--font-editorial)', color: 'var(--color-midnight-wine)' }}>
               interview schedule.
             </span>
