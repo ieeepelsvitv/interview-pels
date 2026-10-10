@@ -8,7 +8,7 @@ export default function AnnouncementBanner() {
         <Zap className="w-3 h-3" />
       </span>
       <span>
-        Junior Core Recruitment Tenure 2026–27: <strong>Interview slots scheduled</strong> across Oct 11 &amp; 12. Enter your registration number to view yours.
+        Junior Core Recruitment 2026: <strong>Interview slots scheduled</strong> across Oct 11 &amp; 12. Enter your registration number to view yours.
       </span>
     </aside>
   );

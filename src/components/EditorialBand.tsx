@@ -13,7 +13,7 @@ export default function EditorialBand() {
           </div>
           <div className="bg-white/15 backdrop-blur-md p-6 rounded-2xl border border-white/25 max-w-md ml-6 sm:ml-12 transform rotate-1 shadow-lg">
             <div className="flex items-center gap-2 mb-2 text-[#d4c7ff] text-[12px] font-mono uppercase tracking-wider">
-              <span>Tenure 2026–27</span> • <span>PELS Core</span>
+              <span>Junior Core</span> • <span>PELS 2026</span>
             </div>
             <p className="text-[15px] font-w460 text-white/90 leading-relaxed">
               Whether you are applying for Technical &amp; Projects, Operations, Events, Design, or Finance—our junior core is built on proactive ownership.

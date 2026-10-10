@@ -9,6 +9,7 @@ import EditorialBand from '@/components/EditorialBand';
 import ChecklistSection from '@/components/ChecklistSection';
 import Footer from '@/components/Footer';
 import { Recruit } from '@/types';
+import { Linkedin } from 'lucide-react';
 
 export default function Home() {
   const [candidate, setCandidate] = useState<Recruit | null>(null);
@@ -27,6 +28,27 @@ export default function Home() {
           candidate={candidate}
         />
         {candidate && <ResultCard candidate={candidate} />}
+        {notFoundMsg && !candidate && (
+          <div className="max-w-2xl mx-auto px-6 mt-6">
+            <div className="p-6 rounded-2xl bg-white border border-[#e3e3e2] text-left flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-[#f2f0eb] text-[#421d24] flex items-center justify-center shrink-0">
+                <span className="font-bold">!</span>
+              </div>
+              <div className="flex-1">
+                <p className="text-[14px] text-[#292827] font-w540 mb-1">Registration number not located</p>
+                <p className="text-[14px] text-[#666666] mb-2">{notFoundMsg}</p>
+                <p className="text-[13px] text-[#666666] flex flex-wrap items-center gap-2">
+                  For assistance, reach out to
+                  <strong className="text-[#292827]">Mohit Seth</strong>
+                  (Technical Head)
+                  <a href="https://www.linkedin.com/in/imohitseth" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[#421d24] font-w540 hover:underline">
+                    <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
         <EditorialBand />
         <ChecklistSection />
         <Footer />
