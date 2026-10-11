@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IEEE PELS VIT Vellore — Recruitment Portal 2026
 
-## Getting Started
+A modern, high-performance web application built for the IEEE Power Electronics Society (PELS) at VIT Vellore. This portal allows candidates to securely retrieve their personalized interview schedules, admit passes, and Google Meet links for the Junior Core Recruitment drive.
 
-First, run the development server:
+## 🚀 Features
+
+- **Secure Private Lookup**: Candidates can only retrieve their own specific schedule via a typo-tolerant registration number search.
+- **Real-time Countdown**: Live countdown timers to the exact interview slot.
+- **Dynamic Admit Pass**: Beautiful, editorial-style admit passes that can be downloaded as high-resolution PNGs.
+- **Interactive UI**: Custom fluid water-ripple background animation and subtle audio feedback.
+- **Search Logging**: Anonymous, secure logging of search attempts for administrative tracking.
+
+## ️ Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router, TypeScript)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Database & Auth**: [Supabase](https://supabase.com/) (PostgreSQL, Row Level Security)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Animations**: Canvas API (Custom fluid physics), [canvas-confetti](https://www.npmjs.com/package/canvas-confetti)
+
+## 📦 Getting Started
+
+First, clone the repository and install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Next, create a `.env.local` file in the root directory and add your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛡️ Security & Privacy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Candidate data is protected via Supabase Row Level Security (RLS).
+- The public interface only allows single-row lookups via a secure PostgreSQL RPC function, preventing bulk data scraping.
+- Environment variables are strictly managed and excluded from version control via `.gitignore`.
 
-## Learn More
+## 📄 License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 IEEE Power Electronics Society (PELS) — VIT Vellore. All rights reserved.
